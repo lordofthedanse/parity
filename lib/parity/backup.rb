@@ -50,6 +50,9 @@ module Parity
       Kernel.system(
         "dropdb --if-exists #{development_db} && createdb #{development_db}",
       )
+      Kernel.system(<<-SHELL)
+        psql #{development_db} -c "CREATE SCHEMA IF NOT EXISTS heroku_ext;"
+      SHELL
     end
 
     def reset_remote_database
